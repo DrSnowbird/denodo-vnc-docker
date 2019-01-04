@@ -96,19 +96,11 @@ RUN \
     echo "PRODUCT_VERSION=${PRODUCT_VERSION}" 
 
 ##################################
-#### VNC ####
+#### Denodo Express ####
 ##################################
 WORKDIR ${HOME}
 
 USER ${USER}
-
-ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
-
-CMD ["--wait"]
-
-##################################
-#### Denodo Express ####
-##################################
 
 #### --- Copy Entrypoint script in the container ---- ####
 COPY ./wrapper_process.sh /
