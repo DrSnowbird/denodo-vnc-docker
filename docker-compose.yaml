@@ -1,0 +1,19 @@
+version: '3' 
+services:
+  denodo-docker:
+    image: openkbs/denodo-docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: denodo-docker
+    environment:
+      - USER_ID=${USER_ID:-1000}
+    env_file:
+      - ./.env
+    ports:
+      - 5901:5901
+      - 6901:5601
+    volumes:
+      - ./workspace:/home/developer/workspace
+      - ./data:/home/developer/data
+
