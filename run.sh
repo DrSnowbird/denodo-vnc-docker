@@ -250,7 +250,7 @@ RESTART_OPTION=no
 #VNC_RESOLUTION="1280x1024"
 VNC_RESOLUTION="1920x1280"
 
-docker run -d \
+docker run -it \
     --name=${instanceName} \
     --restart=${RESTART_OPTION} \
     ${privilegedString} \

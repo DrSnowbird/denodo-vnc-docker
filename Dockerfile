@@ -34,6 +34,7 @@ ARG PRODUCT_INSTALLER_DIR=${PRODUCT_INSTALLER_DIR:-"${WORK_DIR}/denodo-install-$
 ARG PRODUCT_INSTALLER_RESPONSE_FILE=${PRODUCT_INSTALLER_RESPONSE_FILE:-response-file-${PRODUCT_VERSION}.xml}
 ARG PRODUCT_INSTALLER_ZIP=${PRODUCT_INSTALLER_ZIP:-denodo-express-install-${PRODUCT_VERSION}.zip}
 ARG PRODUCT_HOME=${PRODUCT_HOME:-"${HOME}/denodo-platform-${PRODUCT_VERSION}"}
+
 ARG PRODUCT_EXE=${PRODUCT_EXE:-${PRODUCT_HOME}/bin/denodo_platform.sh}
 ENV PRODUCT_EXE=${PRODUCT_EXE}
 
@@ -91,6 +92,7 @@ RUN \
 ## sudo rm -rf denodo-express-install-7.0.zip denodo-install-7.0  
 
 RUN \
+    export PRODUCT_EXE=${PRODUCT_EXE} && \
     echo "PRODUCT_TAR=${PRODUCT_TAR}" && \
     echo "PRODUCT_HOME=${PRODUCT_HOME}" && \
     echo "PRODUCT_VERSION=${PRODUCT_VERSION}" 
@@ -105,7 +107,7 @@ USER ${USER}
 #### --- Copy Entrypoint script in the container ---- ####
 COPY ./wrapper_process.sh /
 
-CMD ["/wrapper_process.sh"] 
+CMD ["/wrapper_process.sh"]
 
 #### --- For debug only ---- ####
 #CMD ["/usr/bin/firefox"]
