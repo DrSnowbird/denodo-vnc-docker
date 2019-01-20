@@ -21,7 +21,7 @@ PID=`ps -elf|grep ${PROC_PATTERN} |grep java |awk '{print $4}' | head -1`
 
 while [ "${PID}" != "" ]
 do
-    echo "Process: $PID is still running"
+    #echo "Process: $PID is still running"
     sleep ${WAIT_SEC}
     PID=`ps -elf|grep ${PROC_PATTERN} |grep java |awk '{print $4}' | head -1`
 done

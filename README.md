@@ -41,9 +41,58 @@ You need two files to build and, after successful build, then you can launch Den
 ```
 
 # Run (recommended for easy-start)
-* Once the above build is done, you can run Denodo now using the command below.
+Image is pulling from openkbs/denodo-vnc-docker
 ```
 ./run.sh
+```
+
+## Mobile devices and Desktop PC supported / tested:
+* SmartPhones: tested ok! iPhone5 Safari works though phone screen size being too small vs the desired HD 1920x1080. It should work across all the smartphones with HTML5-capable brwosers. Hence, to access with small phone screen, run with VNC_RESOLUTION=800x600 (or adjust it to fit your phone's screen size)
+* Tablets: tested ok! Amazon Fire with noVNC works!. It should work across all the tablets with HTML5-capable brwosers.
+![Denodo Express on Amazon Fire tablet](doc/denodo-vnc-docker-on-Amazon-Fire-tablet.jpeg).
+* Desktop PC or MacBook: tested ok! It should work across all PCs Desktop with HTML5-capable brwosers. ![Denodo Express on Desktop PC Browser](doc/denodo-vnc-docker-on-Desktop-PC-Browser.png)
+
+## Connect to VNC Viewer/Client or noVNC (Browser-based VNC)
+* connect via VNC viewer localhost:5901, default password: vncpassword
+* connect via noVNC HTML5 full client: http://localhost:6901/vnc.html, default password: vncpassword
+* connect via noVNC HTML5 lite client: http://localhost:6901/?password=vncpassword
+
+Once it is up, the default password is "vncpassword" to access with your web browser:
+```
+http://<ip_address>:6901/vnc.html,
+e.g.
+=> Standalone Docker: http://localhost:6901/vnc.html
+=> Openshift Container Platform: http://<route-from-openshift>/vnc.html
+=> similarly for Kubernetes Container Platform: (similar to the Openshift above!)
+```
+# Run - Override VNC environment variables 
+The following VNC environment variables can be overwritten at the docker run phase to customize your desktop environment inside the container. You can change those variables using configurations CLI or Web-GUI with OpenShift, Kubernetes, DC/OS, etc.
+```
+VNC_COL_DEPTH, default is 24 , e.g., change to 16,
+    -e VNC_COL_DEPTH=16
+VNC_RESOLUTION, default: 1920x1080 , e.g., change to 1024x800
+    -e VNC_RESOLUTION=1280x1024
+VNC_PW, default: vncpassword , e.g., change to MySpecial!(Password%)
+    -e VNC_PW=MySpecial!(Password%)
+```
+# Screen (Desktop) Resolution
+Two ways to change Screen resolutions.
+
+## 1.) Modify ./run.sh file
+```
+#VNC_RESOLUTION="1280x1024"
+VNC_RESOLUTION="1920x1080"
+```
+
+## 2.) Customize Openshift or Kubernetes container run envionrment
+```
+Set up, say, VNC_RESOLUTION with value 1920x1280
+```
+
+# Base the image to build add-on components
+
+```Dockerfile
+FROM openkbs/jdk-mvn-py3-vnc
 ```
 
 # Configurations (Optional)
